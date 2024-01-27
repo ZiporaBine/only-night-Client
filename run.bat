@@ -1,0 +1,1 @@
+ng serve --proxy-config proxy.conf.json --port 4002 --open

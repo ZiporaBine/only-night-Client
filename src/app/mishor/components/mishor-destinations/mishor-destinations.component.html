@@ -1,0 +1,17 @@
+<div class="flex flex-col gap-5">
+    <div *ngHide class="flex gap-5">
+        <form [formGroup]="formGroup" (submit)="onSubmit()" autocomplete="off">
+            <mat-form-field>
+                <mat-label>Search...</mat-label>
+                <input matInput type="text">
+                <button type="submit" mat-icon-button matSuffix>
+                  <mat-icon>visibility</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="flex flex-col">
+        <ag-grid-angular [domLayout]="'autoHeight'" [rowModelType]="'serverSide'" [serverSideDatasource]="dataSource" [pagination]="true" [paginationPageSize]="20" [cacheBlockSize]="20" class="ag-theme-alpine" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+            [rowSelection]="'single'" (gridReady)="onGridReady($event)" [context]="this"></ag-grid-angular>
+    </div>
+</div>
