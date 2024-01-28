@@ -13,6 +13,20 @@
               <mat-icon>person</mat-icon>Profile</mat-list-item>
           <mat-list-item routerLink="#">
               <mat-icon>notification_important</mat-icon>Notification</mat-list-item> -->
+                
+
+                <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
+                    <mat-expansion-panel-header>
+                        Home
+                    </mat-expansion-panel-header>
+                    <mat-nav-list dense>
+                        <a mat-list-item routerLink="#">
+                            <mat-icon>person_add</mat-icon>Partnership Request</a>
+                        <a mat-list-item routerLink="#">
+                            <mat-icon>visibility</mat-icon>Profile Visibility</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+
                 <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
                     <mat-expansion-panel-header>
                         <!-- <mat-icon>home</mat-icon> -->
@@ -30,9 +44,22 @@
                             Demo 1</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
+
                 <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
                     <mat-expansion-panel-header>
-                        Example
+                        Orders
+                    </mat-expansion-panel-header>
+                    <mat-nav-list dense>
+                        <a mat-list-item routerLink="/orders">
+                            <mat-icon>person_add</mat-icon>Partnership Request</a>
+                        <!-- <a mat-list-item routerLink="#">
+                            <mat-icon>visibility</mat-icon>Profile Visibility</a> -->
+                    </mat-nav-list>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
+                    <mat-expansion-panel-header>
+                        About
                     </mat-expansion-panel-header>
                     <mat-nav-list dense>
                         <a mat-list-item routerLink="#">
@@ -41,6 +68,7 @@
                             <mat-icon>visibility</mat-icon>Profile Visibility</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
+                
             </mat-nav-list>
         </div>
     </mat-sidenav>
@@ -84,7 +112,6 @@
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
+
 <router-outlet *ngIf="!(authService.loggedIn$ | async)">
 </router-outlet>
-
-<!-- <app-mishor></app-mishor> -->

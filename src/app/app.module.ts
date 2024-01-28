@@ -10,12 +10,13 @@ import { MaterialModule } from './material/material.module';
 import { GridService } from './grid.service';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { LoginComponent } from './login/login.component';
-import { MishorModule } from './mishor/mishor.module';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent
+    
   ],
   imports: [
     NgxJsonapiModule.forRoot({
@@ -28,8 +29,7 @@ import { MishorModule } from './mishor/mishor.module';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    ChartjsModule,
-    MishorModule
+    ChartjsModule
   ],
   providers: [
     GridService

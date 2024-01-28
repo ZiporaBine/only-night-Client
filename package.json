@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@ctrl/ngx-chartjs": "^8.0.0",
+    "@kurkle/color": "^0.3.2",
     "ag-grid-angular": "^31.0.1",
     "ag-grid-community": "^31.0.1",
     "ag-grid-enterprise": "^31.0.1",
