@@ -6,6 +6,7 @@ import { MishorModule } from "../mishor.module";
 @Injectable({
     providedIn: 'root'
 })
+
 export class MishorCountriesService extends Service<MishorCountry> {
     public override resource = MishorCountry;
     public override type = 'countries';

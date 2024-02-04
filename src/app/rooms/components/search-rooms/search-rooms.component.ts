@@ -11,7 +11,8 @@ export class SearchRoomsComponent {
   formGroupSearch: FormGroup = new FormGroup({
     city: new FormControl('', [Validators.required]),
     hotel: new FormControl('', [Validators.required]),
-    price: new FormControl(0, [Validators.required])
+    price: new FormControl(0, [Validators.required]),
+    distanceFromCenter :new FormControl(0, [Validators.required]),
   });
 
   optionsCities: string[] = ['London2', 'Paris', 'Amsterdam'];
@@ -20,7 +21,7 @@ export class SearchRoomsComponent {
   optionsHotels: string[] = ['Abbot', 'Hilton', 'Waldorf Astoria'];
   filteredOptionsHotels: Observable<string[]> | null = null;
 
-
+  name:number = 3;
   ngOnInit() {
     this.filteredOptionsCities = this.formGroupSearch.controls['city'].valueChanges.pipe(
       // startWith(''),
@@ -47,5 +48,10 @@ export class SearchRoomsComponent {
     }
 
     return `${value}`;
+  }
+
+  search(sd: number){
+    console.log(this.formGroupSearch, sd, '-------------sd');
+    this.name = sd;
   }
 }

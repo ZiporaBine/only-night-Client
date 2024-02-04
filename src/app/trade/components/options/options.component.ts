@@ -48,7 +48,7 @@ export class OptionsComponent implements OnInit {
             checkOut: CheckOut,
             roomClass: Desc,
             price: Price,
-            mealPlan: MetaData
+            mealPlan: MetaData.Desc
           })
           )
           ]

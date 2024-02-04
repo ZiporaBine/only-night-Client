@@ -10,6 +10,10 @@ import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { RevenueComponent } from './components/revenue/revenue.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { MaterialModule } from '../material/material.module';
+import { StarsComponent } from './components/search-rooms/stars/stars.component';
+import { StarsModule } from './components/search-rooms/stars/stars.module';
+import { StarsDirective } from './directives/stars.directive';
+import { DirectivesModule } from './directives/directives.module';
 
 
 @NgModule({
@@ -18,7 +22,8 @@ import { MaterialModule } from '../material/material.module';
     SearchRoomsComponent,
     RoomAvailabilityComponent,
     RevenueComponent,
-    OffersComponent
+    OffersComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -27,7 +32,9 @@ import { MaterialModule } from '../material/material.module';
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
-    ChartjsModule
+    ChartjsModule,
+    StarsModule,
+    DirectivesModule,
   ],
   exports:[
     SearchRoomsComponent,

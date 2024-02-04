@@ -1,0 +1,14 @@
+:host{
+    .selected-star-icon {
+        color: #e91e63;
+    }
+    /* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+    // .white-icon svg {
+    //     fill: #e91e63;
+    // }
+    .unselected-star-icon {
+        color: #757294;
+    }
+    // 
+}
+

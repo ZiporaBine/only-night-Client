@@ -3,31 +3,47 @@
         <mat-card-title>Search Hotels</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <form [formGroup]="formGroupSearch">
+        <form [formGroup]="formGroupSearch" >
             <mat-form-field class="w-full">
                 <mat-label>Search City..</mat-label>
-                <input type="text" placeholder="Choose" aria-label="City" matInput formControlName="city" [matAutocomplete]="autoCity">
+                <input type="text" placeholder="Choose" aria-label="City" matInput formControlName="city"
+                    [matAutocomplete]="autoCity">
                 <mat-autocomplete autoActiveFirstOption #autoCity="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptionsCities | async" [value]="option">{{option}}</mat-option>
+                    <mat-option *ngFor="let option of filteredOptionsCities | async"
+                        [value]="option">{{option}}</mat-option>
                 </mat-autocomplete>
             </mat-form-field>
+            <!--  -->
+
+            <!--  -->
             <mat-form-field class="w-full">
                 <mat-label>Search Hotel...</mat-label>
-                <input type="text" placeholder="Choose" aria-label="Hotel" matInput formControlName="hotel" [matAutocomplete]="autoHotel">
+                <input type="text" placeholder="Choose" aria-label="Hotel" matInput formControlName="hotel"
+                    [matAutocomplete]="autoHotel">
                 <mat-autocomplete autoActiveFirstOption #autoHotel="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptionsHotels | async" [value]="option">{{option}}</mat-option>
+                    <mat-option *ngFor="let option of filteredOptionsHotels | async"
+                        [value]="option">{{option}}</mat-option>
                 </mat-autocomplete>
             </mat-form-field>
+            
             <div class="flex flex-col gap-3">
+                <h3>Stars</h3>
+                <app-stars (name)="search(name)"></app-stars>
                 <h3>Range Price</h3>
                 <mat-slider showTickMarks discrete [displayWith]="formatLabel">
                     <input formControlName="price" matSliderThumb>
                 </mat-slider>
+                <!--  -->
+                <h3>Range Distance From Center</h3>
+                <mat-slider showTickMarks discrete [displayWith]="formatLabel">
+                    <input formControlName="distanceFromCenter" matSliderThumb>
+                </mat-slider>
+                <!--  -->
                 <div class="flex justify-center">
-                    <button class="w-full" mat-button extended>
-                <mat-icon>search</mat-icon>
-                    Search
-                </button>
+                    <button class="w-full" mat-button extended >
+                        <mat-icon>search</mat-icon>
+                        Search
+                    </button>
                 </div>
             </div>
         </form>

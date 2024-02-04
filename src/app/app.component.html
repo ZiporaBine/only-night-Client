@@ -13,7 +13,7 @@
               <mat-icon>person</mat-icon>Profile</mat-list-item>
           <mat-list-item routerLink="#">
               <mat-icon>notification_important</mat-icon>Notification</mat-list-item> -->
-                
+
 
                 <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
                     <mat-expansion-panel-header>
@@ -68,7 +68,7 @@
                             <mat-icon>visibility</mat-icon>Profile Visibility</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
-                
+
             </mat-nav-list>
         </div>
     </mat-sidenav>
@@ -82,26 +82,26 @@
                 <span style="flex: 1 1 auto;"></span>
                 <div>
                     <button mat-icon-button matTooltip="Switch Apps">
-                      <mat-icon>apps</mat-icon>
-                  </button>
+                        <mat-icon>apps</mat-icon>
+                    </button>
                     <button mat-icon-button matTooltip="Notifications">
-                      <mat-icon>notifications</mat-icon>
-                  </button>
+                        <mat-icon>notifications</mat-icon>
+                    </button>
                     <button mat-icon-button matTooltip="My Account" [matMenuTriggerFor]="accountMenu">
-                      <!-- <mat-icon>account_circle</mat-icon> -->
-                      <img src="assets/images/profile.png">
-                  </button>
+                        <!-- <mat-icon>account_circle</mat-icon> -->
+                        <img src="assets/images/profile.png">
+                    </button>
                     <mat-menu #accountMenu [overlapTrigger]="false" yPosition="below">
                         <button mat-menu-item routerLink="#">
-                          <mat-icon>person</mat-icon><span>My Account</span>
-                      </button>
+                            <mat-icon>person</mat-icon><span>My Account</span>
+                        </button>
                         <button mat-menu-item>
-                          <mat-icon>help</mat-icon><span>Help</span>
-                      </button>
+                            <mat-icon>help</mat-icon><span>Help</span>
+                        </button>
                         <mat-divider></mat-divider>
                         <button mat-menu-item>
-                          <mat-icon>exit_to_app</mat-icon>Logout
-                      </button>
+                            <mat-icon>exit_to_app</mat-icon>Logout
+                        </button>
                     </mat-menu>
                 </div>
             </mat-toolbar>
