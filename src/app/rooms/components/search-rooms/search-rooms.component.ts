@@ -14,6 +14,7 @@ export class SearchRoomsComponent {
     hotel: new FormControl('', [Validators.required]),
     price: new FormControl(0, [Validators.required]),
     distanceFromCenter :new FormControl(0, [Validators.required]),
+    //distanceFromCenter :new FormControl(0, [Validators.required]),
   });
 
   optionsCities: string[] = [];
@@ -24,7 +25,7 @@ export class SearchRoomsComponent {
   optionsHotels: string[] = ['Abbot', 'Hilton', 'Waldorf Astoria'];
   filteredOptionsHotels: Observable<string[]> | null = null;
 
-  name:number = 3;
+  name:number = 0;
 
   constructor(private serchRoomsService: SearchRoomsService){
 
@@ -69,8 +70,8 @@ export class SearchRoomsComponent {
     ).subscribe()
   }
 
-  search(sd: number){
-    console.log(this.formGroupSearch, sd, '-------------sd');
+  search(sd: any){
+    console.log( sd, '-------------sd');
     this.name = sd;
   }
 }

@@ -8,15 +8,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class StarsComponent {
 
   stars: number[] = [1,2,3];
-  @Output() name: EventEmitter<number> = new EventEmitter()
+  @Output() name: EventEmitter<number> = new EventEmitter<number>();
 
   clickOnStar(starNumber: number){
     this.stars.includes(starNumber) ? this.stars.splice(this.stars.indexOf(starNumber), 1) : this.stars.push(starNumber);
     this.name.emit(this.stars.length);
-    // console.log(this.stars);
   }
 
-  showName( ){
-    this.name.emit(this.stars.length);
-  }
 }
