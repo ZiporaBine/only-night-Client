@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { cities } from './search-rooms.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,11 @@ export class SearchRoomsService {
       location: location
     });}
 
-    optionsCities$(): Observable<any>{
+    optionsCities$(): Observable<cities>{
       const url = 'https://countriesnow.space/api/v0.1/countries/population/cities'//TODO  addres api to onnect to googleApi
-      const data = this.http.get<any>(url);
+      const data = this.http.get<cities>(url);
       // console.log(data);
       return data;
     }
 }
+

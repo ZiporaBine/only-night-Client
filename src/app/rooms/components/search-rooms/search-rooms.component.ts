@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
+import { SearchRoomsService } from './search-rooms.service';
 
 @Component({
   selector: 'app-search-rooms',
@@ -15,14 +16,21 @@ export class SearchRoomsComponent {
     distanceFromCenter :new FormControl(0, [Validators.required]),
   });
 
-  optionsCities: string[] = ['London2', 'Paris', 'Amsterdam'];
+  optionsCities: string[] = [];
+  // optionsCities: string[] = ['London2', 'Paris', 'Amsterdam'];
+  optionsCities$:  Observable<cities> | null = null;
   filteredOptionsCities: Observable<string[]> | null = null;
 
   optionsHotels: string[] = ['Abbot', 'Hilton', 'Waldorf Astoria'];
   filteredOptionsHotels: Observable<string[]> | null = null;
 
   name:number = 3;
+
+  constructor(private serchRoomsService: SearchRoomsService){
+
+  }
   ngOnInit() {
+    this.getCitiesForFilter()
     this.filteredOptionsCities = this.formGroupSearch.controls['city'].valueChanges.pipe(
       // startWith(''),
       map(value => this._filter(this.optionsCities, value || '')),
@@ -50,8 +58,38 @@ export class SearchRoomsComponent {
     return `${value}`;
   }
 
+  getCitiesForFilter(){
+    this.serchRoomsService.optionsCities$().pipe(
+      // tap(({CurrentPriceHotel})=> console.log(CurrentPriceHotel)),
+      map(({ data }) => {
+        data.forEach(({city}) =>{ this.optionsCities = [...this.optionsCities, city]})
+        // console.log(this.optionsCities);
+        return this.optionsCities
+      })
+    ).subscribe()
+  }
+
   search(sd: number){
     console.log(this.formGroupSearch, sd, '-------------sd');
     this.name = sd;
   }
+}
+
+export interface cities{
+  error: boolean,
+  msg: string,
+  data: city[]
+}
+
+export interface city{
+  city: string, 
+  country: string,
+  populationCounts: populationCounts
+}
+
+export interface populationCounts{
+  year: number,
+  value: number,
+  sex: string,
+  reliabilty: string
 }
