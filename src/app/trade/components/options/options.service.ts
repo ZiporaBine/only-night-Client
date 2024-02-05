@@ -12,7 +12,8 @@ export class OptionsService {
 
   // getoptions$(): Observable<IRoomElement[]> {
     getoptions$(): Observable<Result> {
-    const url = 'http://127.0.0.1:8000/api/search_opportunities/opportunities'
+    const url = 'http://localhost:3030/options'
+    // const url = 'http://127.0.0.1:8000/api/search_opportunities/opportunities'
     const data =  this.http.get<Result>(url);
     //  console.log(data);
     

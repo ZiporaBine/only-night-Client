@@ -3,7 +3,7 @@
         <mat-card-title>Hotels</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <table mat-table [dataSource]="dataSource$ |async ">
+        <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="hotelName">
                 <th mat-header-cell *matHeaderCellDef>Hotel Name</th>
                 <td mat-cell *matCellDef="let element">{{element.hotelName}}</td>
