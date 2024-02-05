@@ -14,6 +14,8 @@ export class SearchRoomsComponent {
     hotel: new FormControl('', [Validators.required]),
     price: new FormControl(0, [Validators.required]),
     distanceFromCenter :new FormControl(0, [Validators.required]),
+    checkIn :new FormControl('', [Validators.required]),
+    checkOut :new FormControl('', [Validators.required]),
     //distanceFromCenter :new FormControl(0, [Validators.required]),
   });
 
@@ -70,6 +72,15 @@ export class SearchRoomsComponent {
     ).subscribe()
   }
 
+  getHotelsForFilter(){
+    this.serchRoomsService.optionsHotels$().pipe(
+      // tap(({CurrentPriceHotel})=> console.log(CurrentPriceHotel)),
+      map(({ hotels }) => { 
+        hotels.forEach(({name}) =>{ this.optionsHotels =  [...this.optionsHotels, name]})
+        return this.optionsHotels
+      })
+    ).subscribe()
+  }
   search(sd: any){
     console.log( sd, '-------------sd');
     this.name = sd;
@@ -81,16 +92,20 @@ export interface cities{
   msg: string,
   data: city[]
 }
-
 export interface city{
   city: string, 
   country: string,
   populationCounts: populationCounts
 }
-
 export interface populationCounts{
   year: number,
   value: number,
   sex: string,
   reliabilty: string
+}
+export interface hotel{
+  name:string
+}
+export interface hotels{
+  hotels:hotel[]
 }
