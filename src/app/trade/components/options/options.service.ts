@@ -1,18 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { EventEmitter, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { IRoomElement, Result } from './options.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OptionsService implements OnInit{
+export class OptionsService implements OnInit {
 
-  opportunities: any = [];
-  constructor(private http: HttpClient) {}
-
+  private opportunities: IRoomElement[] = [];
+  constructor(private http: HttpClient) { this.initOpportunities(); }
+  dataChangeEvent: EventEmitter<any> = new EventEmitter()|| null;
+ 
   ngOnInit(): void {
-      this.initOpportunities();
+    this.initOpportunities();
   }
   // getoptions$(): Observable<IRoomElement[]> {
   getoptions$(): Observable<Result> {
@@ -52,22 +53,23 @@ export class OptionsService implements OnInit{
           // console.log(Rooms);
           // console.log(Item);
           const { Name, AddressInfo, Id } = Item;
-          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId }) => ({
+          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
             hotelName: Name,
             location: AddressInfo.Address,
-            hotelId:Id,
+            hotelId: Id,
             checkIn: CheckIn,
             checkOut: CheckOut,
             roomClass: Desc,
             price: Price,
             mealPlan: MetaData,
-            roomId:RoomId
+            roomId: RoomId,
+            Profit:Profit
             // mealPlan: MetaData.Desc
           })
           )
           ]
         }))
-        this.opportunities = arr;        
+        this.opportunities = arr;
         return arr;
       }),
     ).subscribe()
@@ -75,4 +77,14 @@ export class OptionsService implements OnInit{
   getOpportunitiesOptions() {
     return this.opportunities;
   }
+  get Opportunities(): IRoomElement[] {
+    return this.opportunities
+  }
+  set Opportunities(opportunities: IRoomElement[]) {
+    console.log(opportunities);
+    
+    this.opportunities = opportunities;
+    this.dataChangeEvent.next('');
+  }
+
 }

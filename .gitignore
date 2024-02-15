@@ -8,9 +8,10 @@
 
 # Node
 /node_modules
+/node.zip
 npm-debug.log
 yarn-error.log
-
+node_modules
 # IDEs and editors
 .idea/
 .project

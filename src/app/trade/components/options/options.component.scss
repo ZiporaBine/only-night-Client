@@ -12,7 +12,24 @@
     .width {
         width: 16.66%;
     }
-
+    th{
+        width: 16.66%;
+    }
+    #ngcontainer{
+        width: 16.66%;
+    }
+    ng-container{
+        width: 16.66%;
+    }
+    #header{
+        width: 50%;
+    }
+    #table{
+        width: 50%;
+    }
+    .mdc-data-table__table {
+        width: 50%;
+    }
     //     /*
     //   This is a work around for checkbox bug in material row
     //   https://github.com/angular/material2/issues/8600
@@ -21,4 +38,12 @@
     //     mat-header-cell.mat-header-cell {
     //         overflow: visible;
     //     }
+    // tr{
+    //     width: 100%;
+    // }
+    ::ng-deep{
+        .mat-mdc-table tbody, .mat-mdc-table tfoot, .mat-mdc-table thead, .mat-mdc-cell, .mat-mdc-footer-cell, .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell{
+            max-width: 9vw;
+        }
+    }
 }

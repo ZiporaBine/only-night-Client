@@ -34,7 +34,7 @@ export class RevenueService {
           this.hitoryPrices = HistoryPriceHotel,
           this.historyValues = this.hitoryPrices[0].HistoryPriceHotel
         vals = CurrentPriceHotel
-        console.log(this.values);
+        // console.log(this.values);
         return this.values
         // console.log(CurrentPriceHotel);
       })
@@ -50,7 +50,7 @@ export class RevenueService {
     // console.log(hotelId, roomId);
     this.hotelId = hotelId;
     this.roomId = roomId;
-    console.log(this.hotelId, this.roomId);
+    // console.log(this.hotelId, this.roomId);
     this.getDots();
   }
 }

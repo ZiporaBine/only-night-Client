@@ -6,6 +6,7 @@ import { TradeComponent } from './trade.component';
 import { OptionsComponent } from './components/options/options.component';
 import { RoomsModule } from '../rooms/rooms.module';
 import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     TradeRoutingModule,
     MaterialModule,
-    RoomsModule
+    RoomsModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class TradeModule { }
