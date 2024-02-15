@@ -155,9 +155,9 @@ export class OptionsComponent implements OnInit, AfterViewInit {
             checkOut: CheckOut,
             roomClass: Desc,
             price: Price,
-            mealPlan: MetaData,
-            roomId:RoomId
-            // mealPlan: MetaData.Desc
+            // mealPlan: MetaData,
+            roomId:RoomId,
+            mealPlan: MetaData.Desc
           })
           )
           ]
