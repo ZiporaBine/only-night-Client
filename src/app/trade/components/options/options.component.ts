@@ -120,7 +120,7 @@ export class OptionsComponent implements OnInit, AfterViewInit {
           const { Name, AddressInfo, Id } = Item;
           arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId }) => ({
             hotelName: Name,
-            location: AddressInfo.Address,
+            location: AddressInfo.City,
             hotelId:Id,
             checkIn: CheckIn,
             checkOut: CheckOut,
@@ -149,7 +149,7 @@ export class OptionsComponent implements OnInit, AfterViewInit {
           const { Name, AddressInfo, Id } = Item;
           arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId }) => ({
             hotelName: Name,
-            location: AddressInfo.Address,
+            location: AddressInfo.City,
             hotelId:Id,
             checkIn: CheckIn,
             checkOut: CheckOut,
@@ -207,6 +207,7 @@ export interface Result {
 };
 export interface AddressInfo {
   Address: string;
+  City: string;
 };
 export interface HotelsElement {
   Item: ItemElement;

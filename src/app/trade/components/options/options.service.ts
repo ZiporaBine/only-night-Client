@@ -55,7 +55,7 @@ export class OptionsService implements OnInit {
           const { Name, AddressInfo, Id } = Item;
           arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
             hotelName: Name,
-            location: AddressInfo.Address,
+            location: AddressInfo.City,
             hotelId: Id,
             checkIn: CheckIn,
             checkOut: CheckOut,
