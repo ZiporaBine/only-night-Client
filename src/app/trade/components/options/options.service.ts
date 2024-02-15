@@ -10,8 +10,8 @@ export class OptionsService implements OnInit {
 
   private opportunities: IRoomElement[] = [];
   constructor(private http: HttpClient) { this.initOpportunities(); }
-  dataChangeEvent: EventEmitter<any> = new EventEmitter()|| null;
- 
+  dataChangeEvent: EventEmitter<any> = new EventEmitter() || null;
+
   ngOnInit(): void {
     this.initOpportunities();
   }
@@ -63,7 +63,7 @@ export class OptionsService implements OnInit {
             price: Price,
             mealPlan: MetaData.Desc,
             roomId: RoomId,
-            Profit:Profit
+            Profit: Profit
             // mealPlan: MetaData.Desc
           })
           )
@@ -81,8 +81,7 @@ export class OptionsService implements OnInit {
     return this.opportunities
   }
   set Opportunities(opportunities: IRoomElement[]) {
-    console.log(opportunities);
-    
+    // console.log(opportunities);
     this.opportunities = opportunities;
     this.dataChangeEvent.next('');
   }

@@ -110,7 +110,7 @@ export class SearchRoomsComponent {
           // console.log(Rooms);
           // console.log(Item);
           const { Name, AddressInfo, Id } = Item;
-          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId }) => ({
+          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
             hotelName: Name,
             location: AddressInfo.Address,
             hotelId: Id,
@@ -118,9 +118,10 @@ export class SearchRoomsComponent {
             checkOut: CheckOut,
             roomClass: Desc,
             price: Price,
-            mealPlan: MetaData,
-            roomId: RoomId
-            // mealPlan: MetaData.Desc
+            // mealPlan: MetaData,
+            roomId: RoomId,
+             mealPlan: MetaData.Desc,
+             Profit: Profit
           })
           )
           ]

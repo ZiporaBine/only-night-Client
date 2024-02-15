@@ -28,7 +28,7 @@ export class OptionsComponent implements OnInit, AfterViewInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   formGroupSearch: FormGroup = new FormGroup({})
-  nameFilter = new FormControl('', [Validators.required])
+  nameFilter = new FormControl('')
   hotelNameFilter = new FormControl('');
   checkInFilter = new FormControl('');
   checkOutFilter = new FormControl('');
@@ -42,8 +42,8 @@ export class OptionsComponent implements OnInit, AfterViewInit {
     checkIn: '',
     checkOut:'',
     room: '',
-    pet: '',
-    profit:''
+    profit:'',
+
   };
 
   constructor(private optionsService: OptionsService, private revenueService: RevenueService) {  }
@@ -126,9 +126,9 @@ export class OptionsComponent implements OnInit, AfterViewInit {
             checkOut: CheckOut,
             roomClass: Desc,
             price: Price,
-            mealPlan: MetaData,
-            roomId:RoomId
-            // mealPlan: MetaData.Desc
+            // mealPlan: MetaData,
+            roomId:RoomId,
+            mealPlan: MetaData.Desc
           })
           )
           ]
@@ -196,6 +196,7 @@ export class OptionsComponent implements OnInit, AfterViewInit {
         && data.checkIn.toString().toLowerCase().indexOf(searchTerms.checkIn) !== -1
         && data.checkOut.toLowerCase().indexOf(searchTerms.checkOut) !== -1
         && data.hotelName.toLowerCase().indexOf(searchTerms.hotelName) !== -1
+         && data.mealPlan.toLowerCase().indexOf(searchTerms.room) !== -1
         && data.Profit.toString().toLowerCase().indexOf(searchTerms.profit) !== -1;
     }
     return filterFunction;
