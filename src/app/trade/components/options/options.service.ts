@@ -61,7 +61,7 @@ export class OptionsService implements OnInit {
             checkOut: CheckOut,
             roomClass: Desc,
             price: Price,
-            mealPlan: MetaData,
+            mealPlan: MetaData.Desc,
             roomId: RoomId,
             Profit:Profit
             // mealPlan: MetaData.Desc
