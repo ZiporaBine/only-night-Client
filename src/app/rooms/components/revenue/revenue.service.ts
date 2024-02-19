@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HistoryPriceHotel, RevenueData } from './revenue.component';
 
@@ -17,6 +17,7 @@ export class RevenueService {
   constructor(private http: HttpClient) {
     this.getDots();
   }
+  
   getdots$(): Observable<RevenueData> {
     // const url = 'http://localhost:3030/options/dots'
     const url = `http://dashboard.onlynight.com:8001/api/search_opportunities/prices/?hotel_id=${this.hotelId}&room_id=${this.roomId}`

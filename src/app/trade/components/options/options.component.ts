@@ -4,7 +4,7 @@ import { OptionsService } from './options.service';
 import { NEVER, Observable, filter, tap, map } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { RevenueService } from 'src/app/rooms/components/revenue/revenue.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -15,7 +15,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OptionsComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass','profit', 'buy'];
+  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass','Profit', 'buy'];
   // dataSource = ELEMENT_DATA;
   dataSource: any = [];
   //   dataSource: IRoomElement[] = [   { hotelName: 'Hotel Name', location: 'Hotel Location', checkIn: '21/12/2023', checkOut: '27/12/2023', roomClass: 'Classic' },
@@ -51,6 +51,7 @@ export class OptionsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // this.loadOptions();
     this.getOptions();
+    
     this.nameFilter.valueChanges
     .subscribe(
       name => {
@@ -118,7 +119,7 @@ export class OptionsComponent implements OnInit, AfterViewInit {
           console.log(Rooms);
           console.log(Item);
           const { Name, AddressInfo, Id } = Item;
-          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId }) => ({
+          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
             hotelName: Name,
             location: AddressInfo.City,
             hotelId:Id,
@@ -128,7 +129,8 @@ export class OptionsComponent implements OnInit, AfterViewInit {
             price: Price,
             // mealPlan: MetaData,
             roomId:RoomId,
-            mealPlan: MetaData.Desc
+            mealPlan: MetaData.Desc,
+            Profit:Profit
           })
           )
           ]
@@ -147,7 +149,7 @@ export class OptionsComponent implements OnInit, AfterViewInit {
         Hotels.forEach((Hotel => {
           const { Item, Rooms } = Hotel
           const { Name, AddressInfo, Id } = Item;
-          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId }) => ({
+          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
             hotelName: Name,
             location: AddressInfo.City,
             hotelId:Id,
@@ -155,9 +157,9 @@ export class OptionsComponent implements OnInit, AfterViewInit {
             checkOut: CheckOut,
             roomClass: Desc,
             price: Price,
-            // mealPlan: MetaData,
             roomId:RoomId,
-            mealPlan: MetaData.Desc
+            mealPlan: MetaData.Desc,
+            Profit:Profit
           })
           )
           ]
@@ -171,6 +173,10 @@ export class OptionsComponent implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate = this.createFilter();
       console.log(this.optionsService.Opportunities);
+      const sortState: Sort = {active: 'hotelName', direction: 'desc'};
+      this.sort.active = sortState.active;
+      this.sort.direction = sortState.direction;
+      this.sort.sortChange.emit(sortState);
     })
   }
 
@@ -273,7 +279,8 @@ export interface IRoomElement {
   price?: number;
   highlighted?: boolean;
   hovered?: boolean;
-  roomId:number
+  roomId:number, 
+  Profit: number
 };
 export interface IMetaData {
   Code: string,

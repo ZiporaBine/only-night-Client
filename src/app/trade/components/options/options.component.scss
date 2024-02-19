@@ -45,5 +45,21 @@
         .mat-mdc-table tbody, .mat-mdc-table tfoot, .mat-mdc-table thead, .mat-mdc-cell, .mat-mdc-footer-cell, .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell{
             max-width: 9vw;
         }
+        .mat-sort-header-content{
+            flex-direction: column;
+            // text-align: left;
+            // justify-content: left;
+            max-width: 9vw;
+        }
+        .mat-sort-header-content span{
+            // flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            right: 0px;
+            
+        }
+        .mat-sort-header-container{
+            flex-direction: column;
+        }
     }
 }
