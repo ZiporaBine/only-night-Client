@@ -9,12 +9,13 @@ import { IRoomElement, Result } from './options.component';
 export class OptionsService {
 
   private opportunities: IRoomElement[] = [];
-  constructor(private http: HttpClient) { this.initOpportunities(); }
   dataChangeEvent: EventEmitter<any> = new EventEmitter() || null;
+
+  constructor(private http: HttpClient) { this.initOpportunities(); }
 
   getoptions$(): Observable<Result> {
     // const url = 'http://localhost:3030/options'
-    const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/opportunities'
+    const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/opportunities/'
     const data = this.http.get<Result>(url);
     return data;
     // return this.http.get<IRoomElement[]>(url);
