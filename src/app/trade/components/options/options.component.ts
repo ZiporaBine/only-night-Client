@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 // import { IRoomElement, IAddressInfo, IHotelsElement, IItemElement ,IOptionResult } from 'types'
 import { OptionsService } from './options.service';
 import { NEVER, Observable, filter, tap, map } from 'rxjs';
@@ -13,9 +13,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.scss']
 })
-export class OptionsComponent implements OnInit, AfterViewInit {
+export class OptionsComponent implements OnInit {
 
-  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass','Profit', 'buy'];
+  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'Profit', 'buy'];
   // dataSource = ELEMENT_DATA;
   dataSource: any = [];
   //   dataSource: IRoomElement[] = [   { hotelName: 'Hotel Name', location: 'Hotel Location', checkIn: '21/12/2023', checkOut: '27/12/2023', roomClass: 'Classic' },
@@ -37,172 +37,105 @@ export class OptionsComponent implements OnInit, AfterViewInit {
 
 
   filterValues = {
-    hotelName:'',
+    hotelName: '',
     name: '',
     checkIn: '',
-    checkOut:'',
+    checkOut: '',
     room: '',
-    profit:'',
+    profit: '',
 
   };
 
-  constructor(private optionsService: OptionsService, private revenueService: RevenueService) {  }
+  constructor(private optionsService: OptionsService, private revenueService: RevenueService) { }
 
   ngOnInit(): void {
-    // this.loadOptions();
     this.getOptions();
-    
+
     this.nameFilter.valueChanges
-    .subscribe(
-      name => {
-        this.filterValues.name = name ||''
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
-  this.hotelNameFilter.valueChanges
-    .subscribe(
-      hotelName => {
-        this.filterValues.hotelName = hotelName||'';
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
-  this.checkInFilter.valueChanges
-    .subscribe(
-      checkIn => {
-        this.filterValues.checkIn = checkIn||'';
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
-  this.checkOutFilter.valueChanges
-    .subscribe(
-      checkOut => {
-        this.filterValues.checkOut = checkOut||'';
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
-    // console.log(this.optionsService.getOpportunitiesOptions());
-    this.optionsService.dataChangeEvent.subscribe(_ =>{
-      this.onDataChange();
-    }) 
+      .subscribe(
+        name => {
+          this.filterValues.name = name || ''
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
+    this.hotelNameFilter.valueChanges
+      .subscribe(
+        hotelName => {
+          this.filterValues.hotelName = hotelName || '';
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
+    this.checkInFilter.valueChanges
+      .subscribe(
+        checkIn => {
+          this.filterValues.checkIn = checkIn || '';
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
+    this.checkOutFilter.valueChanges
+      .subscribe(
+        checkOut => {
+          this.filterValues.checkOut = checkOut || '';
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
     this.roomFilter.valueChanges
-    .subscribe(
-      room => {
-        this.filterValues.room = room||'';
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
+      .subscribe(
+        room => {
+          this.filterValues.room = room || '';
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
     this.profitFilter.valueChanges
-    .subscribe(
-      profit => {
-        this.filterValues.profit = profit||'';
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
-    // console.log(this.optionsService.getOpportunitiesOptions());
-    this.optionsService.dataChangeEvent.subscribe(_ =>{
+      .subscribe(
+        profit => {
+          this.filterValues.profit = profit || '';
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
+    this.optionsService.dataChangeEvent.subscribe(_ => {
       this.onDataChange();
-    }) 
-  }
-  ngAfterViewInit() {
-    this.dSource = new MatTableDataSource<any>(this.dataSource);
-    this.dSource.paginator = this.paginator;
-    this.opportunities = this.optionsService.Opportunities
-  }
-  loadOptions() {
-    this.dataSource$ = this.optionsService.getoptions$().pipe(
-      tap((Item: Result) => console.log(Item['Hotels'])),
-      map(({ Hotels }) => {
-        let arr: IRoomElement[] = [];
-        Hotels.forEach((Hotel => {
-          const { Item, Rooms } = Hotel
-          // const {MetaData} = Rooms
-          console.log(Rooms);
-          console.log(Item);
-          const { Name, AddressInfo, Id } = Item;
-          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
-            hotelName: Name,
-            location: AddressInfo.City,
-            hotelId:Id,
-            checkIn: CheckIn,
-            checkOut: CheckOut,
-            roomClass: Desc,
-            price: Price,
-            // mealPlan: MetaData,
-            roomId:RoomId,
-            mealPlan: MetaData.Desc,
-            Profit:Profit
-          })
-          )
-          ]
-        }))
-        console.log(arr);
-        this.dataSource = arr
-        return arr;
-      }),
-    )
-  }
-  getOptions() {
-    this.optionsService.getoptions$().pipe(
-      // tap((Item: Result) => console.log(Item['Hotels'])),
-      map(({ Hotels }) => {
-        let arr: IRoomElement[] = [];
-        Hotels.forEach((Hotel => {
-          const { Item, Rooms } = Hotel
-          const { Name, AddressInfo, Id } = Item;
-          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
-            hotelName: Name,
-            location: AddressInfo.City,
-            hotelId:Id,
-            checkIn: CheckIn,
-            checkOut: CheckOut,
-            roomClass: Desc,
-            price: Price,
-            roomId:RoomId,
-            mealPlan: MetaData.Desc,
-            Profit:Profit
-          })
-          )
-          ]
-        }))
-        // this.dataSource = arr
-        return arr;
-      }),
-    ).subscribe(_ => {
-      this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = this.createFilter();
-      console.log(this.optionsService.Opportunities);
-      const sortState: Sort = {active: 'hotelName', direction: 'desc'};
-      this.sort.active = sortState.active;
-      this.sort.direction = sortState.direction;
-      this.sort.sortChange.emit(sortState);
     })
   }
+  getOptions() {
+    this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = this.createFilter();
+    console.log(this.optionsService.Opportunities);
+    const sortState: Sort = { active: 'hotelName', direction: 'desc' };
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+  }
 
-  onDataChange(){
-     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = this.createFilter();
-      console.log(this.optionsService.Opportunities);
+  onDataChange() {
+    this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = this.createFilter();
+    console.log(this.optionsService.Opportunities);
+    const sortState: Sort = { active: 'hotelName', direction: 'desc' };
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
   selectOption(row: IRoomElement) {
     let arr: any = [...this.dataSource.data]
-    arr=arr.forEach((element: any) => {
+    arr = arr.forEach((element: any) => {
       element.highlighted ? element.highlighted = false : element.highlighted
       return element
     });
     this.revenueService.setValues(row.hotelId, row.roomId);
   }
   createFilter(): (data: any, filter: string) => boolean {
-    let filterFunction = function(data:any, filter:string): boolean {
+    let filterFunction = function (data: any, filter: string): boolean {
       let searchTerms = JSON.parse(filter);
       return data.location.toLowerCase().indexOf(searchTerms.name) !== -1
         && data.checkIn.toString().toLowerCase().indexOf(searchTerms.checkIn) !== -1
         && data.checkOut.toLowerCase().indexOf(searchTerms.checkOut) !== -1
         && data.hotelName.toLowerCase().indexOf(searchTerms.hotelName) !== -1
-         && data.mealPlan.toLowerCase().indexOf(searchTerms.room) !== -1
+        && data.mealPlan.toLowerCase().indexOf(searchTerms.room) !== -1
         && data.Profit.toString().toLowerCase().indexOf(searchTerms.profit) !== -1;
     }
     return filterFunction;
@@ -225,7 +158,7 @@ export interface ItemElement {
   AddressInfo: AddressInfo
 };
 export interface RoomElement {
-  RoomId:number,
+  RoomId: number,
   Desc: string,
   Price: number,
   NumAdt: number,
@@ -246,7 +179,7 @@ export interface RoomElement {
   checkOut: string;
   roomClass: string;
   mealPlan: string,
-  Profit:number,
+  Profit: number,
 };
 // const ELEMENT_DATA: IRoomElement[] = [
 //   { hotelName: 'Hotel Name', location: 'Hotel Location', checkIn: '21/12/2023', checkOut: '27/12/2023', roomClass: 'Classic' },
@@ -269,7 +202,7 @@ export interface IOptionResult {
   Hotels: IHotelsElement[];
 };
 export interface IRoomElement {
-  hotelId:number,
+  hotelId: number,
   hotelName: string;
   location: string;
   checkIn: string;
@@ -279,14 +212,14 @@ export interface IRoomElement {
   price?: number;
   highlighted?: boolean;
   hovered?: boolean;
-  roomId:number, 
+  roomId: number,
   Profit: number
 };
 export interface IMetaData {
   Code: string,
   Desc: string
 };
-export interface FilterValues  {
+export interface FilterValues {
   name?: string,
   id?: string,
   colour?: string,

@@ -1,26 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { IRoomElement, Result } from './options.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OptionsService implements OnInit {
+export class OptionsService {
 
   private opportunities: IRoomElement[] = [];
   constructor(private http: HttpClient) { this.initOpportunities(); }
   dataChangeEvent: EventEmitter<any> = new EventEmitter() || null;
-  try: string = 'try'
-  ngOnInit(): void {
-    this.initOpportunities();
-  }
-  // getoptions$(): Observable<IRoomElement[]> {
+
   getoptions$(): Observable<Result> {
     // const url = 'http://localhost:3030/options'
     const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/opportunities'
     const data = this.http.get<Result>(url);
-    //  console.log(data);
     return data;
     // return this.http.get<IRoomElement[]>(url);
     // const data = this.http.get<any[]>(url).pipe(
@@ -50,8 +45,6 @@ export class OptionsService implements OnInit {
         Hotels.forEach((Hotel => {
           const { Item, Rooms } = Hotel
           // const {MetaData} = Rooms
-          // console.log(Rooms);
-          // console.log(Item);
           const { Name, AddressInfo, Id } = Item;
           arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
             hotelName: Name,
@@ -63,14 +56,12 @@ export class OptionsService implements OnInit {
             price: Price,
             mealPlan: MetaData.Desc,
             roomId: RoomId,
-            Profit:parseFloat(Profit.toFixed(4)),
-            
-            // mealPlan: MetaData.Desc
+            Profit: parseFloat(Profit.toFixed(4)),
           })
           )
           ]
         }))
-        this.opportunities = arr;
+        this.Opportunities = arr;
         return arr;
       }),
     ).subscribe()
@@ -82,7 +73,6 @@ export class OptionsService implements OnInit {
     return this.opportunities
   }
   set Opportunities(opportunities: IRoomElement[]) {
-    // console.log(opportunities);
     this.opportunities = opportunities;
     this.dataChangeEvent.next('');
   }

@@ -18,8 +18,10 @@ export class SearchRoomsComponent {
     hotel: new FormControl(''),
     price: new FormControl(0, [Validators.required]),
     distanceFromCenter: new FormControl(0, [Validators.required]),
-    checkIn: new FormControl('', [Validators.required ,this.validateCheckIn() as ValidatorFn]),
-    checkOut: new FormControl('', [Validators.required, this.validateCheckOut(this.checkIn) as ValidatorFn]),
+    checkIn: new FormControl('', [Validators.required ,]),
+    // checkIn: new FormControl('', [Validators.required ,this.validateCheckIn() as ValidatorFn]),
+    checkOut: new FormControl('', [Validators.required]),
+    // checkOut: new FormControl('', [Validators.required, this.validateCheckOut(this.checkIn) as ValidatorFn]),
   });
 
   optionsCities: string[] = [];
@@ -98,9 +100,9 @@ export class SearchRoomsComponent {
         CeckInDate._i.year + '-' + (CeckInDate._i.month + 1) + '-' + CeckInDate._i.date,
         CeckOutDate._i.year + '-' + (CeckOutDate._i.month + 1) + '-' + CeckOutDate._i.date,
       ).pipe(
-        // tap(result => {console.log(result),
-        //    console.log("try");
-        // }),
+        tap(result => {console.log(result),
+           console.log("try");
+        }),
         map(({ Hotels }) => {
           let arr: IRoomElement[] = [];
           if (!Hotels)
@@ -134,7 +136,7 @@ export class SearchRoomsComponent {
         console.log(this.optionsService.Opportunities);
       })
     }
-    this.formGroupSearch.reset()
+    // this.formGroupSearch.reset()
   }
   checkOutValidator(control: FormControl) {
     if (
