@@ -19,7 +19,7 @@ export class RevenueService {
 
   getdots$(): Observable<IRevenueData> {
     // const url = 'http://localhost:3030/options/dots'
-    const url = `http://dashboard.onlynight.com:8001/api/search_opportunities/prices/?hotel_id=${this.hotelId}`
+    const url = `http://dashboard.onlynight.com:8001/api/search_opportunities/prices/${this.hotelId}`
     const data = this.http.get<IRevenueData>(url);
     // console.log(data);
     return data;
