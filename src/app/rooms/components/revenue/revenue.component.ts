@@ -150,6 +150,7 @@ export class RevenueComponent implements OnInit {
   //   }, 200);
   //   return vals;
   // }
+  
   updateCartData() {
     setInterval(() => {
       //this.data.datasets.forEach(ds =>  ds.data =this.values );
@@ -373,10 +374,22 @@ export interface RevenueData {
   RoomID: number,
   RoomPrice: number,
   CurrentPriceHotel: number[],
-  HistoryPriceHotel: HistoryPriceHotel[]
+  HistoryPriceHotel: number[]
 }
 export interface HistoryPriceHotel {
   Year: number,
   HistoryPriceHotel: number[]
 }
+export interface CurrentPriceHotelValue {
+  RoomClass: string,
+  Price: number
+}
+export interface CurrentPriceHotel {
+  Date: string,
+  Values: CurrentPriceHotelValue[]
+}
 
+export interface IRevenueData {
+  CurrentPriceHotel: CurrentPriceHotel[],
+  HistoryPriceHotel: number[]
+}

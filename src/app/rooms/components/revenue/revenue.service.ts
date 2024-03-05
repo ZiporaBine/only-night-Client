@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { HistoryPriceHotel, RevenueData } from './revenue.component';
+import { HistoryPriceHotel, IRevenueData, RevenueData } from './revenue.component';
 
 @Injectable({
   providedIn: 'root'
@@ -9,33 +9,29 @@ import { HistoryPriceHotel, RevenueData } from './revenue.component';
 export class RevenueService {
 
   hotelId: number = 1;
-  roomId: number = 2;
   private historyValues: number[] = [];
   private values: number[] = [];
-  private hitoryPrices: HistoryPriceHotel[] = [];
+  private hitoryPrices: number[] = [];
 
   constructor(private http: HttpClient) {
     this.getDots();
   }
-  
-  getdots$(): Observable<RevenueData> {
+
+  getdots$(): Observable<IRevenueData> {
     // const url = 'http://localhost:3030/options/dots'
-    const url = `http://dashboard.onlynight.com:8001/api/search_opportunities/prices/?hotel_id=${this.hotelId}&room_id=${this.roomId}`
-    const data = this.http.get<RevenueData>(url);
+    const url = `http://dashboard.onlynight.com:8001/api/search_opportunities/prices/?hotel_id=${this.hotelId}`
+    const data = this.http.get<IRevenueData>(url);
     // console.log(data);
     return data;
   }
   getDots() {
-    let vals: number[] = [];
     this.getdots$().pipe(
       // tap(({CurrentPriceHotel})=> console.log(CurrentPriceHotel)),
-
       map(({ CurrentPriceHotel, HistoryPriceHotel }) => {
-        this.values = CurrentPriceHotel,
-          this.hitoryPrices = HistoryPriceHotel,
-          this.historyValues = this.hitoryPrices[0].HistoryPriceHotel
-        vals = CurrentPriceHotel
-        // console.log(this.values);
+        // this.values = CurrentPriceHotel[0].Values.map(({Price})=> Price),
+        CurrentPriceHotel.forEach(({ Values }) => this.values = [...this.values, Values[0].Price])
+        this.hitoryPrices = HistoryPriceHotel,
+        this.historyValues = this.hitoryPrices
         return this.values
         // console.log(CurrentPriceHotel);
       })
@@ -47,11 +43,9 @@ export class RevenueService {
   get hitoryValues(): any[] {
     return this.historyValues
   }
-  setValues(hotelId:number, roomId:number) {
-    // console.log(hotelId, roomId);
+  setValues(hotelId: number) {
     this.hotelId = hotelId;
-    this.roomId = roomId;
-    // console.log(this.hotelId, this.roomId);
+    // console.log(this.hotelId);
     this.getDots();
   }
 }

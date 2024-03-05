@@ -15,7 +15,7 @@ export class OptionsService {
 
   getoptions$(): Observable<Result> {
     // const url = 'http://localhost:3030/options'
-    const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/opportunities/'
+    const url = 'http://dashboard.onlynight.com:8002/api/search_opportunities/opportunities/'
     const data = this.http.get<Result>(url);
     return data;
     // return this.http.get<IRoomElement[]>(url);
@@ -77,5 +77,16 @@ export class OptionsService {
     this.opportunities = opportunities;
     this.dataChangeEvent.next('');
   }
-
+  buy$(city: string, hotel: string, price: number, stars: number, location: number, checkIn: string, checkOut: string): Observable<Result>{
+    const url = 'http://dashboard.onlynight.com:8002/api/search_opportunities/bookings';//TODO accept url for post request
+    return this.http.post<any>(url, {
+      city: city,
+      hotel_name: hotel,
+      stars: stars,
+      check_in: checkIn.substring(0, 11),
+      check_out: checkOut.substring(0, 11),
+      price: price,
+      location: location,
+    });
+  }
 }

@@ -15,7 +15,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OptionsComponent implements OnInit {
 
-  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'Profit', 'buy'];
+  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'Profit', 'Price', 'buy'];
   // dataSource = ELEMENT_DATA;
   dataSource: any = [];
   //   dataSource: IRoomElement[] = [   { hotelName: 'Hotel Name', location: 'Hotel Location', checkIn: '21/12/2023', checkOut: '27/12/2023', roomClass: 'Classic' },
@@ -126,7 +126,7 @@ export class OptionsComponent implements OnInit {
       element.highlighted ? element.highlighted = false : element.highlighted
       return element
     });
-    this.revenueService.setValues(row.hotelId, row.roomId);
+    this.revenueService.setValues(row.hotelId);
   }
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function (data: any, filter: string): boolean {
@@ -139,6 +139,10 @@ export class OptionsComponent implements OnInit {
         && data.Profit.toString().toLowerCase().indexOf(searchTerms.profit) !== -1;
     }
     return filterFunction;
+  }
+  buy(element: IRoomElement){
+    console.log('element: ', element);
+    
   }
 }
 export interface Result {

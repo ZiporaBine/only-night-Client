@@ -91,7 +91,7 @@ export class SearchRoomsComponent {
   search() {
     const CeckInDate = this.formGroupSearch.controls['checkIn'].value
     const CeckOutDate = this.formGroupSearch.controls['checkOut'].value
-    if (this.formGroupSearch.valid) {
+    // if (this.formGroupSearch.valid) {
       this.serchRoomsService.searchOpportunities$(this.formGroupSearch.controls['city'].value,
         this.formGroupSearch.controls['hotel'].value,
         this.formGroupSearch.controls['price'].value,
@@ -135,7 +135,7 @@ export class SearchRoomsComponent {
         this.optionsService.Opportunities = opportunities;
         console.log(this.optionsService.Opportunities);
       })
-    }
+    // }
     // this.formGroupSearch.reset()
   }
   checkOutValidator(control: FormControl) {
