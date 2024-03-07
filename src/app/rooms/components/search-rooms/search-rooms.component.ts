@@ -28,11 +28,11 @@ export class SearchRoomsComponent {
   // optionsCities: string[] = ['London2', 'Paris', 'Amsterdam'];
   optionsCities$: Observable<cities> | null = null;
   filteredOptionsCities: Observable<string[]> | null = null;
-  optionsHotels: string[] = ['Abbot', 'Hilton', 'Waldorf Astoria'];
+  optionsHotels: string[] = [];
   filteredOptionsHotels: Observable<string[]> | null = null;
   checkInCange: Observable<any> | null = null;
 
-  stars: number = 0;
+  stars: number = 3;
 
   constructor(private serchRoomsService: SearchRoomsService, private optionsService: OptionsService) { }
 

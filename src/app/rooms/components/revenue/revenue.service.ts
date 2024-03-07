@@ -25,17 +25,25 @@ export class RevenueService {
     return data;
   }
   getDots() {
-    this.getdots$().pipe(
-      // tap(({CurrentPriceHotel})=> console.log(CurrentPriceHotel)),
-      map(({ CurrentPriceHotel, HistoryPriceHotel }) => {
-        // this.values = CurrentPriceHotel[0].Values.map(({Price})=> Price),
-        CurrentPriceHotel.forEach(({ Values }) => this.values = [...this.values, Values[0].Price])
-        this.hitoryPrices = HistoryPriceHotel,
-        this.historyValues = this.hitoryPrices
-        return this.values
-        // console.log(CurrentPriceHotel);
-      })
-    ).subscribe()
+    if (this.hotelId > 10) {
+      this.getdots$().pipe(
+        // tap(({CurrentPriceHotel})=> console.log(CurrentPriceHotel)),
+        map(({ CurrentPriceHotel, HistoryPriceHotel }) => {
+          // this.values = CurrentPriceHotel[0].Values.map(({Price})=> Price),
+          CurrentPriceHotel.forEach(({ Values }) => this.values = [...this.values, Values[0].Price])
+          this.hitoryPrices = HistoryPriceHotel,
+            this.historyValues = this.hitoryPrices
+          return this.values
+          // console.log(CurrentPriceHotel);
+        })
+      ).subscribe()
+    }
+    else{
+      this.values = []
+      this.hitoryPrices = [],
+      this.historyValues = []
+      // return this.values
+    }
   }
   get CurrentValues(): any[] {
     return this.values
@@ -45,7 +53,6 @@ export class RevenueService {
   }
   setValues(hotelId: number) {
     this.hotelId = hotelId;
-    // console.log(this.hotelId);
     this.getDots();
   }
 }

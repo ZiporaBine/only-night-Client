@@ -79,7 +79,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns" #header></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"
                     [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
-                    (click)=" selectOption(row);row.highlighted = !row.highlighted;" (mouseover)="row.hovered = true"
+                    (click)="selectOption(row);row.highlighted = !row.highlighted;" (mouseover)="row.hovered = true"
                     (mouseout)="row.hovered = false"></tr>
             </table>
         </form>

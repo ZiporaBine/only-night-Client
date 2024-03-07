@@ -16,7 +16,7 @@ export class SearchRoomsService {
     // console.log(city,' ', hotel,' ', price,' ', stars,' ', location,' ', checkIn,' ', checkOut);
     const editCity = city.substring(0,1).toUpperCase() + city.substring(1,city.length).toLowerCase();
     console.log(checkIn, ' ', checkOut);
-    return this.http.post<any>(url, {
+    return this.http.post<Result>(url, {
       city: editCity,
       hotel_name: hotel,
       stars: stars,
