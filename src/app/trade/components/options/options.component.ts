@@ -18,12 +18,8 @@ export class OptionsComponent implements OnInit {
   displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'Profit', 'Price', 'buy'];
   // dataSource = ELEMENT_DATA;
   dataSource: any = [];
-  //   dataSource: IRoomElement[] = [   { hotelName: 'Hotel Name', location: 'Hotel Location', checkIn: '21/12/2023', checkOut: '27/12/2023', roomClass: 'Classic' },
   opportunities: IRoomElement[] = []
-  dataSource$: Observable<any> = NEVER;
-  // Observable<MatTableDataSource<Thing>>
-  // dataSource$: Observable<IRoomElement[]> = NEVER;
-  dSource = new MatTableDataSource<any>(this.dataSource);
+  // dSource = new MatTableDataSource<any>(this.dataSource);
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -34,8 +30,6 @@ export class OptionsComponent implements OnInit {
   checkOutFilter = new FormControl('');
   roomFilter = new FormControl('');
   profitFilter = new FormControl('');
-
-
   filterValues = {
     hotelName: '',
     name: '',
@@ -140,9 +134,9 @@ export class OptionsComponent implements OnInit {
     }
     return filterFunction;
   }
-  buy(element: IRoomElement){
-    console.log('element: ', element);
-    
+  buy(element: IRoomElement) {
+    console.log('element: ', element.location, element.hotelName, element.price, 5, 5, element.checkIn, element.checkOut, element.BToken, element.hotelId.toString());
+    // this.optionsService.buy$(element.location, element.hotelName, element.price, 5, 5, element.checkIn, element.checkOut, element.BToken, element.hotelId.toString()).subscribe()
   }
 }
 export interface Result {
@@ -184,6 +178,7 @@ export interface RoomElement {
   roomClass: string;
   mealPlan: string,
   Profit: number,
+  BToken: string
 };
 // const ELEMENT_DATA: IRoomElement[] = [
 //   { hotelName: 'Hotel Name', location: 'Hotel Location', checkIn: '21/12/2023', checkOut: '27/12/2023', roomClass: 'Classic' },
@@ -213,11 +208,13 @@ export interface IRoomElement {
   checkOut: string;
   roomClass: string;
   metaData?: IMetaData;
-  price?: number;
+  price: number;
   highlighted?: boolean;
   hovered?: boolean;
   roomId: number,
-  Profit: number
+  Profit: number,
+  BToken?: string
+
 };
 export interface IMetaData {
   Code: string,

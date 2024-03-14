@@ -47,7 +47,7 @@ export class OptionsService {
           const { Item, Rooms } = Hotel
           // const {MetaData} = Rooms
           const { Name, AddressInfo, Id } = Item;
-          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
+          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit, BToken }) => ({
             hotelName: Name,
             location: AddressInfo.City,
             hotelId: Id,
@@ -57,6 +57,7 @@ export class OptionsService {
             price: Price,
             mealPlan: MetaData.Desc,
             roomId: RoomId,
+            BToken: BToken,
             Profit: parseFloat(Profit.toFixed(4)),
           })
           )
@@ -77,8 +78,8 @@ export class OptionsService {
     this.opportunities = opportunities;
     this.dataChangeEvent.next('');
   }
-  buy$(city: string, hotel: string, price: number, stars: number, location: number, checkIn: string, checkOut: string): Observable<Result>{
-    const url = 'http://dashboard.onlynight.com:8002/api/search_opportunities/bookings';//TODO accept url for post request
+  buy$(city: string, hotel: string, price: number, stars: number, location: number, checkIn: string, checkOut: string, room_token: string, hotel_code:string): Observable<Result>{
+    const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/bookings';//TODO accept url for post request
     return this.http.post<any>(url, {
       city: city,
       hotel_name: hotel,
@@ -87,6 +88,8 @@ export class OptionsService {
       check_out: checkOut.substring(0, 11),
       price: price,
       location: location,
+      room_token: "",
+      hotel_code: ""
     });
   }
 }
