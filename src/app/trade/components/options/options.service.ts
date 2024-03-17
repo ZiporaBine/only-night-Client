@@ -46,7 +46,7 @@ export class OptionsService {
         Hotels.forEach((Hotel => {
           const { Item, Rooms } = Hotel
           // const {MetaData} = Rooms
-          const { Name, AddressInfo, Id } = Item;
+          const { Name, AddressInfo, Id, Stars } = Item;
           arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit, BToken }) => ({
             hotelName: Name,
             location: AddressInfo.City,
@@ -59,6 +59,7 @@ export class OptionsService {
             roomId: RoomId,
             BToken: BToken,
             Profit: parseFloat(Profit.toFixed(4)),
+            Stars: Stars
           })
           )
           ]
@@ -78,7 +79,7 @@ export class OptionsService {
     this.opportunities = opportunities;
     this.dataChangeEvent.next('');
   }
-  buy$(city: string, hotel: string, price: number, stars: number, location: number, checkIn: string, checkOut: string, room_token: string, hotel_code:string): Observable<Result>{
+  buy$(city: string, hotel: string, price: number, stars: number, location: number, checkIn: string, checkOut: string, room_token: string, hotel_code: string): Observable<Result> {
     const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/bookings';//TODO accept url for post request
     return this.http.post<any>(url, {
       city: city,

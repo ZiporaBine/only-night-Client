@@ -16,7 +16,7 @@ export class OrdersService {
   private orders: IOrderElement[] = []
 
   getOrders$(): Observable<IOrderResulst> {
-    const url = 'http://dashboard.onlynight.com:8002/api/search_opportunities/booking/'
+    const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/booking/'
     const data = this.http.get<IOrderResulst>(url);
     return data;
   }

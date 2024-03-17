@@ -17,6 +17,7 @@ export class OptionsComponent implements OnInit {
 
   displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'Profit', 'Price', 'buy'];
   // dataSource = ELEMENT_DATA;
+  loading: boolean = true
   dataSource: any = [];
   opportunities: IRoomElement[] = []
   // dSource = new MatTableDataSource<any>(this.dataSource);
@@ -92,6 +93,7 @@ export class OptionsComponent implements OnInit {
     })
   }
   getOptions() {
+    
     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -104,6 +106,8 @@ export class OptionsComponent implements OnInit {
   }
 
   onDataChange() {
+    if( this.optionsService.Opportunities  )
+      this.loading = false
     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -135,8 +139,8 @@ export class OptionsComponent implements OnInit {
     return filterFunction;
   }
   buy(element: IRoomElement) {
-    console.log('element: ', element.location, element.hotelName, element.price, 5, 5, element.checkIn, element.checkOut, element.BToken, element.hotelId.toString());
-    // this.optionsService.buy$(element.location, element.hotelName, element.price, 5, 5, element.checkIn, element.checkOut, element.BToken, element.hotelId.toString()).subscribe()
+    console.log('element: ', element.location, element.hotelName, element.price, 5, 5, element.checkIn, element.checkOut,'token:   ', element.BToken, element.hotelId.toString(), element.Stars);
+    // this.optionsService.buy$(element.location, element.hotelName, element.price, element.Stars, 5, element.checkIn, element.checkOut, element.BToken, element.hotelId.toString()).subscribe()
   }
 }
 export interface Result {
@@ -153,7 +157,8 @@ export interface HotelsElement {
 export interface ItemElement {
   Id: number,
   Name: string,
-  AddressInfo: AddressInfo
+  AddressInfo: AddressInfo,
+  Stars: number
 };
 export interface RoomElement {
   RoomId: number,
@@ -213,7 +218,8 @@ export interface IRoomElement {
   hovered?: boolean;
   roomId: number,
   Profit: number,
-  BToken?: string
+  BToken: string,
+  Stars: number
 
 };
 export interface IMetaData {

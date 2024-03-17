@@ -112,8 +112,8 @@ export class SearchRoomsComponent {
             // const {MetaData} = Rooms
             // console.log(Rooms);
             // console.log(Item);
-            const { Name, AddressInfo, Id } = Item;
-            arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit }) => ({
+            const { Name, AddressInfo, Id, Stars } = Item;
+            arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit, BToken }) => ({
               hotelName: Name,
               location: AddressInfo.City,
               hotelId: Id,
@@ -124,7 +124,9 @@ export class SearchRoomsComponent {
               // mealPlan: MetaData,
               roomId: RoomId,
               mealPlan: MetaData.Desc,
-              Profit: Profit
+              Profit: Profit,
+              BToken: BToken,
+              Stars: Stars
             })
             )
             ]
