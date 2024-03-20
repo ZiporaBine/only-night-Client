@@ -21,7 +21,7 @@ export class OptionsComponent implements OnInit {
   dataSource: any = [];
   opportunities: IRoomElement[] = []
   // dSource = new MatTableDataSource<any>(this.dataSource);
-  @ViewChild(MatPaginator)
+  @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   formGroupSearch: FormGroup = new FormGroup({})
@@ -44,8 +44,16 @@ export class OptionsComponent implements OnInit {
   constructor(private optionsService: OptionsService, private revenueService: RevenueService) { }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = this.createFilter();
+    console.log(this.optionsService.Opportunities);
+    const sortState: Sort = { active: 'hotelName', direction: 'desc' };
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
     this.getOptions();
-
     this.nameFilter.valueChanges
       .subscribe(
         name => {
@@ -91,9 +99,13 @@ export class OptionsComponent implements OnInit {
     this.optionsService.dataChangeEvent.subscribe(_ => {
       this.onDataChange();
     })
+    this.dataSource.paginator = this.paginator;
+    if (this.optionsService.Opportunities.length ===0)
+      this.loading = true
+    else
+      this.loading = false
   }
   getOptions() {
-    
     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -106,7 +118,9 @@ export class OptionsComponent implements OnInit {
   }
 
   onDataChange() {
-    if( this.optionsService.Opportunities  )
+    if (this.optionsService.Opportunities.length ===0)
+      this.loading = true
+    else
       this.loading = false
     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
     this.dataSource.paginator = this.paginator;
@@ -139,8 +153,9 @@ export class OptionsComponent implements OnInit {
     return filterFunction;
   }
   buy(element: IRoomElement) {
-    console.log('element: ', element.location, element.hotelName, element.price, 5, 5, element.checkIn, element.checkOut,'token:   ', element.BToken, element.hotelId.toString(), element.Stars);
-    // this.optionsService.buy$(element.location, element.hotelName, element.price, element.Stars, 5, element.checkIn, element.checkOut, element.BToken, element.hotelId.toString()).subscribe()
+    console.log('element: ',' element.location: ', element.location, 'element.hotelName: ', element.hotelName, 'element.price: ',element.price, 5, 5, 'element.checkIn: ', element.checkIn, 'element.checkOut: ', element.checkOut, 'token:   ', element.BToken,'element.hotelId: ', element.hotelId.toString(), 'element.Stars: ', element.Stars);
+    // this.optionsService.buy$(element.location, element.hotelName, element.price, element.Stars, 5,
+    //    element.checkIn, element.checkOut, element.BToken, element.hotelId.toString()).subscribe()
   }
 }
 export interface Result {

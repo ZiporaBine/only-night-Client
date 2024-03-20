@@ -15,13 +15,14 @@ export class SearchRoomsService {
     const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/one_hotel/';//TODO accept url for post request
     // console.log(city,' ', hotel,' ', price,' ', stars,' ', location,' ', checkIn,' ', checkOut);
     const editCity = city.substring(0, 1).toUpperCase() + city.substring(1, city.length).toLowerCase();
-    console.log(checkIn, ' ', checkOut);
     return this.http.post<Result>(url, {
       city: editCity,
       hotel_name: hotel,
       stars: stars,
-      check_in: checkIn.toString().replace('/', '-'),
-      check_out: checkOut.replace('/', '-'),
+      check_in: checkIn.substring(0, 10),
+      check_out: checkOut.substring(0, 10),
+      // check_in: checkIn.toString().replace('/', '-'),
+      // check_out: checkOut.replace('/', '-'),
       price: price,
       location: location,
       room_token: "",

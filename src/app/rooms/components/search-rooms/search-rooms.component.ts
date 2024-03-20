@@ -18,7 +18,7 @@ export class SearchRoomsComponent {
     hotel: new FormControl(''),
     price: new FormControl(0, [Validators.required]),
     distanceFromCenter: new FormControl(0, [Validators.required]),
-    checkIn: new FormControl('', [Validators.required ,]),
+    checkIn: new FormControl('', [Validators.required,]),
     // checkIn: new FormControl('', [Validators.required ,this.validateCheckIn() as ValidatorFn]),
     checkOut: new FormControl('', [Validators.required]),
     // checkOut: new FormControl('', [Validators.required, this.validateCheckOut(this.checkIn) as ValidatorFn]),
@@ -89,56 +89,70 @@ export class SearchRoomsComponent {
     this.stars = stars;
   }
   search() {
-    const CeckInDate = this.formGroupSearch.controls['checkIn'].value
-    const CeckOutDate = this.formGroupSearch.controls['checkOut'].value
+    let CeckInDate = this.formGroupSearch.controls['checkIn'].value
+    let CeckOutDate = this.formGroupSearch.controls['checkOut'].value
+    console.log('search func---  ', CeckInDate.format(), CeckOutDate.format());
+    // if (CeckInDate.format() === CeckOutDate.format())
+    //   CeckInDate.add('d', -1)
+    // CeckInDate._f !== "DD/MM/YYYY" ? CeckInDate = CeckInDate._i.year + '-' + (CeckInDate._i.month + 1) + '-' + CeckInDate._i.date : CeckInDate
+    // CeckOutDate._f !== "DD/MM/YYYY" ? CeckOutDate = CeckOutDate._i.year + '-' + (CeckOutDate._i.month + 1) + '-' + CeckOutDate._i.date : CeckOutDate
+
     // if (this.formGroupSearch.valid) {
-      this.serchRoomsService.searchOpportunities$(this.formGroupSearch.controls['city'].value,
-        this.formGroupSearch.controls['hotel'].value,
-        this.formGroupSearch.controls['price'].value,
-        this.stars,
-        this.formGroupSearch.controls['distanceFromCenter'].value,
-        CeckInDate._i.year + '-' + (CeckInDate._i.month + 1) + '-' + CeckInDate._i.date,
-        CeckOutDate._i.year + '-' + (CeckOutDate._i.month + 1) + '-' + CeckOutDate._i.date,
-      ).pipe(
-        tap(result => {console.log(result),
-           console.log("try");
-        }),
-        map(({ Hotels }) => {
-          let arr: IRoomElement[] = [];
-          if (!Hotels)
-            return arr;
-          Hotels.forEach((Hotel => {
-            const { Item, Rooms } = Hotel
-            // const {MetaData} = Rooms
-            // console.log(Rooms);
-            // console.log(Item);
-            const { Name, AddressInfo, Id, Stars } = Item;
-            arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit, BToken }) => ({
-              hotelName: Name,
-              location: AddressInfo.City,
-              hotelId: Id,
-              checkIn: CheckIn,
-              checkOut: CheckOut,
-              roomClass: Desc,
-              price: Price,
-              // mealPlan: MetaData,
-              roomId: RoomId,
-              mealPlan: MetaData.Desc,
-              Profit: Profit,
-              BToken: BToken,
-              Stars: Stars
-            })
-            )
-            ]
-          }))
+    this.serchRoomsService.searchOpportunities$(this.formGroupSearch.controls['city'].value,
+      this.formGroupSearch.controls['hotel'].value,
+      this.formGroupSearch.controls['price'].value,
+      this.stars,
+      this.formGroupSearch.controls['distanceFromCenter'].value,
+      this.formGroupSearch.controls['checkIn'].value.format(),
+      CeckOutDate.format()
+    ).pipe(
+      map(({ Hotels }) => {
+        let arr: IRoomElement[] = [];
+        if (!Hotels)
           return arr;
-        }),
-      ).subscribe(opportunities => {
-        this.optionsService.Opportunities = opportunities;
-        console.log(this.optionsService.Opportunities);
-      })
+        Hotels.forEach((Hotel => {
+          const { Item, Rooms } = Hotel
+          const { Name, AddressInfo, Id, Stars } = Item;
+          arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit, BToken }) => ({
+            hotelName: Name,
+            location: AddressInfo.City,
+            hotelId: Id,
+            checkIn: CheckIn,
+            checkOut: CheckOut,
+            roomClass: Desc,
+            price: Price,
+            roomId: RoomId,
+            mealPlan: MetaData.Desc,
+            Profit: Profit,
+            BToken: BToken,
+            Stars: Stars
+          })
+          )
+          ]
+        }))
+        return arr;
+      }),
+    ).subscribe(opportunities => {
+      this.optionsService.Opportunities = opportunities;
+      console.log(this.optionsService.Opportunities);
+    })
     // }
     // this.formGroupSearch.reset()
+  }
+  completeChechOut() {
+    console.log('completeChechOut is called');
+    // this.formGroupSearch.controls['checkOut'].setValue(this.formGroupSearch.controls['checkIn'].value)
+    const t = this.formGroupSearch.controls['checkIn'].value;
+    console.log('t: ', t.format());
+    let a = t;
+    a = a.add('d', 1);
+    console.log('a after add: ', a.format(), t.format());
+    console.log('before setValue():', this.formGroupSearch.controls['checkOut'].value);
+    this.formGroupSearch.controls['checkOut'].setValue(a);
+    a = a.add('d', -1);
+
+    console.log('this.formGroupSearch.controls[checkIn].value:', this.formGroupSearch.controls['checkIn'].value);
+    console.log('this.formGroupSearch.controls[checkOut].value:', this.formGroupSearch.controls['checkOut'].value);
   }
   checkOutValidator(control: FormControl) {
     if (
@@ -185,7 +199,7 @@ export class SearchRoomsComponent {
         const temp = this.formGroupSearch.controls['checkOut'].value;
         this.formGroupSearch.updateValueAndValidity();
         this.formGroupSearch.reset({
-         
+
           checkOut: temp,
         });
         console.log(this.formGroupSearch);
@@ -227,4 +241,3 @@ export const MY_DATE_FORMAT = {
     monthYearA11yLabel: 'MMMM YYYY'
   }
 };
-

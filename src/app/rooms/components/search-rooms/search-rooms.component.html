@@ -28,11 +28,20 @@
 
             <mat-form-field>
                 <mat-label>Check In...</mat-label>
-                <input matInput [matDatepicker]="picker" placeholder="Choose" formControlName="checkIn" >
+                <input matInput [matDatepicker]="picker" placeholder="Choose" formControlName="checkIn"
+                     (dateInput)="completeChechOut()">
 
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-datepicker #picker ngDefaultControl></mat-datepicker>
+
             </mat-form-field>
+            <!-- 
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="roomsFilter.date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker [(ngModel)]="roomsFilter.date" ngDefaultControl (selectedChanged)="onDate($event)"></mat-datepicker>
+              </mat-form-field> -->
 
             <mat-form-field>
                 <mat-label>Check Out...</mat-label>
