@@ -15,7 +15,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OptionsComponent implements OnInit {
 
-  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'Profit', 'Price', 'buy'];
+  displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'stars', 'Profit', 'Price', 'buy'];
   // dataSource = ELEMENT_DATA;
   loading: boolean = true
   dataSource: any = [];
