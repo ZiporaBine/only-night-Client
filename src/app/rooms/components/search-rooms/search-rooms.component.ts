@@ -93,11 +93,6 @@ export class SearchRoomsComponent {
     let CeckInDate = this.formGroupSearch.controls['checkIn'].value
     let CeckOutDate = this.formGroupSearch.controls['checkOut'].value
     console.log('search func---  ', CeckInDate.format(), CeckOutDate.format());
-    // if (CeckInDate.format() === CeckOutDate.format())
-    //   CeckInDate.add('d', -1)
-    // CeckInDate._f !== "DD/MM/YYYY" ? CeckInDate = CeckInDate._i.year + '-' + (CeckInDate._i.month + 1) + '-' + CeckInDate._i.date : CeckInDate
-    // CeckOutDate._f !== "DD/MM/YYYY" ? CeckOutDate = CeckOutDate._i.year + '-' + (CeckOutDate._i.month + 1) + '-' + CeckOutDate._i.date : CeckOutDate
-
     // if (this.formGroupSearch.valid) {
     this.serchRoomsService.searchOpportunities$(this.formGroupSearch.controls['city'].value,
       this.formGroupSearch.controls['hotel'].value,
@@ -141,19 +136,11 @@ export class SearchRoomsComponent {
     // this.formGroupSearch.reset()
   }
   completeChechOut() {
-    console.log('completeChechOut is called');
-    // this.formGroupSearch.controls['checkOut'].setValue(this.formGroupSearch.controls['checkIn'].value)
     const t = this.formGroupSearch.controls['checkIn'].value;
-    console.log('t: ', t.format());
     let a = t;
     a = a.add('d', 1);
-    console.log('a after add: ', a.format(), t.format());
-    console.log('before setValue():', this.formGroupSearch.controls['checkOut'].value);
     this.formGroupSearch.controls['checkOut'].setValue(a);
     a = a.add('d', -1);
-
-    console.log('this.formGroupSearch.controls[checkIn].value:', this.formGroupSearch.controls['checkIn'].value);
-    console.log('this.formGroupSearch.controls[checkOut].value:', this.formGroupSearch.controls['checkOut'].value);
   }
   checkOutValidator(control: FormControl) {
     if (

@@ -14,39 +14,17 @@ export class OptionsService {
   constructor(private http: HttpClient) { this.initOpportunities(); }
 
   getoptions$(): Observable<Result> {
-    // const url = 'http://localhost:3030/options'
     const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/opportunities/'
     const data = this.http.get<Result>(url);
     return data;
-    // return this.http.get<IRoomElement[]>(url);
-    // const data = this.http.get<any[]>(url).pipe(
-    // map( (item: any) => {
-    //   const hotelName = item.Item.Name;
-    //   const location = item.Item.AddressInfo.City;
-
-    //   const roomElements = item.Rooms.map((room: any) => {
-    //     const checkIn = room.CheckIn;
-    //     const checkOut = room.CheckOut;
-    //     const roomClass = room.MetaData.Desc;
-
-    //     return { hotelName, location, checkIn, checkOut, roomClass };
-    //   });
-
-    //   // return roomElements;
-    // })
-
-    // )
-    // return data;
   }
   initOpportunities() {
     return this.getoptions$().pipe(
-      // tap((Item: Result) => console.log(Item['Hotels'])),
       map(({ Hotels }) => {
         let arr: IRoomElement[] = [];
         Hotels.forEach((Hotel => {
           const { Item, Rooms } = Hotel
-          // const {MetaData} = Rooms
-          const { Name, AddressInfo, Id, Stars } = Item;
+          const { Name, AddressInfo, Id, Stars, Images } = Item;
           arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit, BToken }) => ({
             hotelName: Name,
             location: AddressInfo.City,
@@ -59,7 +37,8 @@ export class OptionsService {
             roomId: RoomId,
             BToken: BToken,
             Profit: parseFloat(Profit.toFixed(4)),
-            Stars: Stars
+            Stars: Stars,
+            Images: Images
           })
           )
           ]
@@ -93,7 +72,7 @@ export class OptionsService {
       hotel_code: ""
     });
   }
-  setLoading(){
+  setLoading() {
     this.loadingChangeEvent.next('');
   }
 }

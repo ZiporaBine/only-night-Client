@@ -18,23 +18,19 @@ export class RevenueService {
   }
 
   getdots$(): Observable<IRevenueData> {
-    // const url = 'http://localhost:3030/options/dots'
     const url = `http://dashboard.onlynight.com:8001/api/search_opportunities/prices/${this.hotelId}`
     const data = this.http.get<IRevenueData>(url);
-    // console.log(data);
     return data;
   }
   getDots() {
     if (this.hotelId > 10) {
       this.getdots$().pipe(
-        // tap(({CurrentPriceHotel})=> console.log(CurrentPriceHotel)),
         map(({ CurrentPriceHotel, HistoryPriceHotel }) => {
           // this.values = CurrentPriceHotel[0].Values.map(({Price})=> Price),
           CurrentPriceHotel.forEach(({ Values }) => this.values = [...this.values, Values[0].Price])
           this.hitoryPrices = HistoryPriceHotel,
             this.historyValues = this.hitoryPrices
           return this.values
-          // console.log(CurrentPriceHotel);
         })
       ).subscribe()
     }
