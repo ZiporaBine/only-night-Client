@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-// import { IRoomElement, IAddressInfo, IHotelsElement, IItemElement ,IOptionResult } from 'types'
 import { OptionsService } from './options.service';
-import { NEVER, Observable, filter, tap, map } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { RevenueService } from 'src/app/rooms/components/revenue/revenue.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-options',
@@ -14,13 +12,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./options.component.scss']
 })
 export class OptionsComponent implements OnInit {
-
   displayedColumns: string[] = ['hotelName', 'location', 'checkIn', 'checkOut', 'roomClass', 'stars', 'Profit', 'Price', 'buy'];
-  // dataSource = ELEMENT_DATA;
   loading: boolean = true
   dataSource: any = [];
   opportunities: IRoomElement[] = []
-  // dSource = new MatTableDataSource<any>(this.dataSource);
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -99,11 +94,14 @@ export class OptionsComponent implements OnInit {
     this.optionsService.dataChangeEvent.subscribe(_ => {
       this.onDataChange();
     })
+    this.optionsService.loadingChangeEvent.subscribe(_ => {
+      this.loading = true;
+    })
     this.dataSource.paginator = this.paginator;
     if (this.optionsService.Opportunities.length ===0)
-      this.loading = true
+      this.loading = true;
     else
-      this.loading = false
+      this.loading = false;
   }
   getOptions() {
     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);

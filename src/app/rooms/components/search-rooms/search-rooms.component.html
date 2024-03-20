@@ -29,7 +29,7 @@
             <mat-form-field>
                 <mat-label>Check In...</mat-label>
                 <input matInput [matDatepicker]="picker" placeholder="Choose" formControlName="checkIn"
-                     (dateInput)="completeChechOut()">
+                    (dateInput)="completeChechOut()">
 
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -58,12 +58,10 @@
                 <mat-slider showTickMarks discrete [displayWith]="formatLabel">
                     <input formControlName="price" matSliderThumb>
                 </mat-slider>
-                <!--  -->
                 <h3>Range Distance From Center</h3>
                 <mat-slider showTickMarks discrete [displayWith]="formatLabel">
                     <input formControlName="distanceFromCenter" matSliderThumb>
                 </mat-slider>
-                <!--  -->
                 <div class="flex justify-center">
                     <button class="w-full" mat-button extended (click)="search()">
                         <mat-icon>search</mat-icon>

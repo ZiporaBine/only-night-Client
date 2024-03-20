@@ -10,7 +10,7 @@ export class OptionsService {
 
   private opportunities: IRoomElement[] = [];
   dataChangeEvent: EventEmitter<any> = new EventEmitter() || null;
-
+  loadingChangeEvent: EventEmitter<any> = new EventEmitter() || null;
   constructor(private http: HttpClient) { this.initOpportunities(); }
 
   getoptions$(): Observable<Result> {
@@ -92,5 +92,8 @@ export class OptionsService {
       room_token: "",
       hotel_code: ""
     });
+  }
+  setLoading(){
+    this.loadingChangeEvent.next('');
   }
 }

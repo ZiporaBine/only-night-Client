@@ -89,6 +89,7 @@ export class SearchRoomsComponent {
     this.stars = stars;
   }
   search() {
+    this.optionsService.setLoading()
     let CeckInDate = this.formGroupSearch.controls['checkIn'].value
     let CeckOutDate = this.formGroupSearch.controls['checkOut'].value
     console.log('search func---  ', CeckInDate.format(), CeckOutDate.format());
