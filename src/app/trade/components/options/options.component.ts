@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { RevenueService } from 'src/app/rooms/components/revenue/revenue.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { OffersService } from 'src/app/rooms/components/offers/offers.service';
 
 @Component({
   selector: 'app-options',
@@ -36,7 +37,7 @@ export class OptionsComponent implements OnInit {
 
   };
 
-  constructor(private optionsService: OptionsService, private revenueService: RevenueService) { }
+  constructor(private optionsService: OptionsService, private revenueService: RevenueService, private offersService: OffersService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
@@ -128,12 +129,15 @@ export class OptionsComponent implements OnInit {
     this.sort.sortChange.emit(sortState);
   }
   selectOption(row: IRoomElement) {
+    console.log(row);
+    
     let arr: any = [...this.dataSource.data]
     arr = arr.forEach((element: any) => {
       element.highlighted ? element.highlighted = false : element.highlighted
       return element
     });
     this.revenueService.setValues(row.hotelId);
+    this.offersService.Offers = row.Images 
   }
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function (data: any, filter: string): boolean {
@@ -234,7 +238,7 @@ export interface IRoomElement {
   Profit: number,
   BToken: string,
   Stars: number,
-  Images?: Image[]
+  Images: Image[]
 
 };
 export interface IMetaData {

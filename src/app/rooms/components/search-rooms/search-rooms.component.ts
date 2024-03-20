@@ -108,7 +108,7 @@ export class SearchRoomsComponent {
           return arr;
         Hotels.forEach((Hotel => {
           const { Item, Rooms } = Hotel
-          const { Name, AddressInfo, Id, Stars } = Item;
+          const { Name, AddressInfo, Id, Stars, Images} = Item;
           arr = [...arr, ...Rooms.map(({ CheckIn, CheckOut, Desc, MetaData, Price, RoomId, Profit, BToken }) => ({
             hotelName: Name,
             location: AddressInfo.City,
@@ -121,7 +121,8 @@ export class SearchRoomsComponent {
             mealPlan: MetaData.Desc,
             Profit: Profit,
             BToken: BToken,
-            Stars: Stars
+            Stars: Stars,
+            Images: Images
           })
           )
           ]

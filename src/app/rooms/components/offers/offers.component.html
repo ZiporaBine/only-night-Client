@@ -5,9 +5,9 @@
     <mat-card-content>
         <div class="flex flex-col gap-3">
             <div *ngFor="let offer of offers" class="flex flex-col gap-1">
-                <img [src]="offer.imageUrl" />
+                <img [src]="offer.ImageLink" />
                 <div class="flex justify-between">
-                    <span>{{ offer.name }}</span>
+                    <span>{{ offer.Desc }}</span>
                     <span class="price">{{ offer.price }}</span>
                 </div>
             </div>
