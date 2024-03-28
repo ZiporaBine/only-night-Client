@@ -117,7 +117,7 @@ export class OptionsComponent implements OnInit {
   }
 
   onDataChange() {
-    this.loading = false
+    this.loading = false;
     this.dataSource = new MatTableDataSource(this.optionsService.Opportunities);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -137,7 +137,7 @@ export class OptionsComponent implements OnInit {
       return element
     });
     this.revenueService.setValues(row.hotelId);
-    this.offersService.Offers = row.Images 
+    // this.offersService.Offers = row.Images 
   }
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function (data: any, filter: string): boolean {

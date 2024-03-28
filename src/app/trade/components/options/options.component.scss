@@ -43,7 +43,10 @@
     // }
     ::ng-deep{
         .mat-mdc-table tbody, .mat-mdc-table tfoot, .mat-mdc-table thead, .mat-mdc-cell, .mat-mdc-footer-cell, .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell{
-            max-width: 7vw;
+            max-width: 5vw;
+        }
+        mat-mdc-cell mdc-data-table__cell cdk-cell cdk-column-location mat-column-location ng-star-inserted{
+            background-color: aqua;
         }
         .mat-sort-header-content{
             flex-direction: column;
