@@ -12,6 +12,7 @@ export class SearchRoomsService {
   constructor(private http: HttpClient) { }
 
   searchOpportunities$(city: string, hotel: string, price: number, stars: number, location: number, checkIn: string, checkOut: string): Observable<Result> {
+    // const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/bookings';//TODO accept url for post request
     const url = 'http://dashboard.onlynight.com:8001/api/search_opportunities/one_hotel/';//TODO accept url for post request
     const editCity = city.substring(0, 1).toUpperCase() + city.substring(1, city.length).toLowerCase();
     return this.http.post<Result>(url, {

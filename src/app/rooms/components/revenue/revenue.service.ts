@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { HistoryPriceHotel, IRevenueData, RevenueData } from './revenue.component';
+import { IRevenueData } from './revenue.component';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class RevenueService {
         map(({ CurrentPriceHotel, HistoryPriceHotel }) => {
           // this.values = CurrentPriceHotel[0].Values.map(({Price})=> Price),
           CurrentPriceHotel.forEach(({ Values }) => this.values = [...this.values, Values[0].Price])
-          this.hitoryPrices = HistoryPriceHotel,
+          this.hitoryPrices = HistoryPriceHotel[0].Values,
             this.historyValues = this.hitoryPrices
           return this.values
         })
