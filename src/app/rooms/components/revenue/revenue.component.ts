@@ -16,6 +16,7 @@ export class RevenueComponent implements OnInit {
   historyValues: number[] = [];
   hitoryPrices: HistoryPriceHotel[] = [];
   values$: Observable<number> = NEVER;
+  borderColor: string[] = ['rgb(247, 204, 14)', 'rgb(247, 127, 14)', 'rgb(247, 14, 162)', 'rgba(198, 155, 255, 1)']
 
   @ViewChild('ref', { static: true }) ref!: ChartjsComponent;
 
@@ -25,19 +26,42 @@ export class RevenueComponent implements OnInit {
   ngOnInit(): void {
     // this.getValues();
     console.log(this.revenueService.CurrentValues);
-    this.updateCartData();
-
+    this.revenueService.dataChangeEvent.subscribe(_ => {
+      this.updateCartData();
+      ;
+    })
   }
   transparentize(value: any, opacity?: any) {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
     return colorLib(value).alpha(alpha).rgbString();
   }
-  
+
   updateCartData() {
-    setInterval(() => {
-      this.data.datasets.forEach(ds => ds.label === 'Current Year' ? ds.data = this.revenueService.CurrentValues : ds.data = this.revenueService.hitoryValues);
-      this.ref.chartInstance.update();
-    }, 500);
+    // setInterval(() => {
+    let dataset: any[] = [];
+    let i = 0;
+    this.revenueService.HistoryPriceHotel.forEach(({ Year, Values }) => {
+      dataset = [...dataset, { label: Year, data: Values, tension: 0, borderColor: this.borderColor[i] }]
+      i < this.borderColor.length - 1 ? i++ : i = 0
+    })
+    // this.data.datasets.forEach(ds => ds.label === 'Current Year' ? ds.data = this.revenueService.CurrentValues : ds.data = this.revenueService.hitoryValues);
+    dataset = [{
+      label: 'Current Year',
+      data: this.revenueService.CurrentValues,
+      // fill: {
+      //   target: 'origin',
+      //   above: '#422CFF',
+      //   below: '#422CFF'
+      // },
+      borderColor: 'rgba(166, 155, 255, 1)',//Utils.CHART_COLORS.orange,
+      backgroundColor: this.transparentize('rgba(230, 227, 255, 1)'),// Utils.transparentize(Utils.CHART_COLORS.orange),
+      fill: '-1',
+      tension: 0
+
+    }, ...dataset]
+    this.data.datasets = dataset;
+    this.ref.chartInstance.update();
+    // }, 500);
   }
 
   data: ChartData<'line'> = {
@@ -141,10 +165,10 @@ export interface RevenueData {
   HistoryPriceHotel: number[]
 }
 
-export interface HistoryPriceHotel {
-  Year: number,
-  HistoryPriceHotel: number[]
-}
+// export interface HistoryPriceHotel {
+//   Year: number,
+//   HistoryPriceHotel: number[]
+// }
 
 export interface CurrentPriceHotelValue {
   RoomClass: string,
